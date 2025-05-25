@@ -1,9 +1,20 @@
+import {Validate} from "../utils/validate";
 import Header from "./Header";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 const Login = () => {
+  const email = useRef(null);
+  const password = useRef(null);
   const [IsSignIn, setIsSignIn] = useState(true);
+  const [message, setMessage] = useState("");
   const handleSignIn = () => {
     setIsSignIn(!IsSignIn);
+  };
+  const handleSubmit = () => {
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
+
+    const msg = Validate(emailValue, passwordValue);
+    setMessage(msg);
   };
   return (
     <div className="relative h-screen">
@@ -14,7 +25,10 @@ const Login = () => {
         alt="Netflix Login Background"
       />
       <div className="absolute inset-0 flex items-center justify-center">
-        <form className="w-4/12 min-w-[300px] bg-black bg-opacity-80 p-12 text-white rounded-lg ">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="w-4/12 min-w-[300px] bg-black bg-opacity-80 p-12 text-white rounded-lg "
+        >
           <h1 className="text-3xl font-bold py-4">
             {IsSignIn ? "Sign In" : "Sign Up"}
           </h1>
@@ -26,16 +40,23 @@ const Login = () => {
             />
           )}
           <input
+            ref={email}
             className="p-2 my-2 w-full rounded bg-gray-700"
             type="email"
             placeholder="Email"
           />
           <input
+            ref={password}
             className="p-2 my-2 w-full rounded bg-gray-700"
             type="password"
             placeholder="Password"
           />
-          <button className="bg-red-700 w-full p-4 my-6 rounded" type="submit">
+          {message && <p className="text-red-500 text-sm my-2">{message}</p>}
+          <button
+            onClick={handleSubmit}
+            className="bg-red-700 w-full p-4 my-6 rounded"
+            type="submit"
+          >
             {IsSignIn ? "Sign In" : "Sign Up"}
           </button>
           <p onClick={handleSignIn} className="p-4 cursor-pointer">
