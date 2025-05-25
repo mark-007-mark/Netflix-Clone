@@ -1,17 +1,22 @@
 import { Validate } from "../utils/validate";
 import Header from "./Header";
 import React, { useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser, removeUser } from "../utils/userSlice";
+
 import {
   createUserWithEmailAndPassword,
-  signInWithCredential,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
   const [IsSignIn, setIsSignIn] = useState(true);
   const [message, setMessage] = useState(null);
   const handleSignIn = () => {
@@ -20,7 +25,7 @@ const Login = () => {
   const handleSubmit = () => {
     const emailValue = email.current.value;
     const passwordValue = password.current.value;
-
+    const nameValue = !IsSignIn && name.current.value ? name.current.value : "";
     const msg = Validate(emailValue, passwordValue);
     setMessage(msg);
     if (msg) {
@@ -30,7 +35,24 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
+          updateProfile(user, {
+            displayName: nameValue,
+          })
+            .then(() => {
+              const { uid, displayName, email } = user || {};
+              dispatch(
+                setUser({
+                  uid,
+                  displayName,
+                  email,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              console.error("Error updating profile:", error);
+            });
+
           console.log("User signed up successfully:", user);
         })
         .catch((error) => {
@@ -43,7 +65,16 @@ const Login = () => {
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
+          const { uid, displayName, email } = user;
+          dispatch(
+            setUser({
+              uid,
+              displayName,
+              email,
+            })
+          );
           navigate("/browse");
+
           console.log("User signed in successfully:", user);
         })
         .catch((error) => {
@@ -72,6 +103,7 @@ const Login = () => {
           </h1>
           {!IsSignIn && (
             <input
+              ref={name}
               className="p-2 my-2 w-full rounded bg-gray-700"
               type="text"
               placeholder="Full Name"
