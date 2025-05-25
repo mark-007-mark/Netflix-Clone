@@ -1,5 +1,10 @@
 import Header from "./Header";
+import React, { useState } from "react";
 const Login = () => {
+  const [IsSignIn, setIsSignIn] = useState(true);
+  const handleSignIn = () => {
+    setIsSignIn(!IsSignIn);
+  };
   return (
     <div className="relative h-screen">
       <Header />
@@ -9,8 +14,17 @@ const Login = () => {
         alt="Netflix Login Background"
       />
       <div className="absolute inset-0 flex items-center justify-center">
-        <form className="w-3/12 min-w-[300px] bg-black bg-opacity-80 p-12 text-white rounded-lg">
-          <h1 className="text-3xl font-bold py-4">Sign In</h1>
+        <form className="w-4/12 min-w-[300px] bg-black bg-opacity-80 p-12 text-white rounded-lg ">
+          <h1 className="text-3xl font-bold py-4">
+            {IsSignIn ? "Sign In" : "Sign Up"}
+          </h1>
+          {!IsSignIn && (
+            <input
+              className="p-2 my-2 w-full rounded bg-gray-700"
+              type="text"
+              placeholder="Full Name"
+            />
+          )}
           <input
             className="p-2 my-2 w-full rounded bg-gray-700"
             type="email"
@@ -22,8 +36,13 @@ const Login = () => {
             placeholder="Password"
           />
           <button className="bg-red-700 w-full p-4 my-6 rounded" type="submit">
-            Sign In
+            {IsSignIn ? "Sign In" : "Sign Up"}
           </button>
+          <p onClick={handleSignIn} className="p-4 cursor-pointer">
+            {IsSignIn
+              ? "New to Netflix?Sign up now."
+              : "Already having an account? Sign In"}
+          </p>
         </form>
       </div>
     </div>
