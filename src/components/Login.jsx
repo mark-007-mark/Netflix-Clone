@@ -1,11 +1,19 @@
-import {Validate} from "../utils/validate";
+import { Validate } from "../utils/validate";
 import Header from "./Header";
 import React, { useRef, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import {
+  createUserWithEmailAndPassword,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 const Login = () => {
+  const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
   const [IsSignIn, setIsSignIn] = useState(true);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
   const handleSignIn = () => {
     setIsSignIn(!IsSignIn);
   };
@@ -15,6 +23,36 @@ const Login = () => {
 
     const msg = Validate(emailValue, passwordValue);
     setMessage(msg);
+    if (msg) {
+      return;
+    }
+    if (!IsSignIn) {
+      createUserWithEmailAndPassword(auth, emailValue, passwordValue)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          navigate("/browse");
+          console.log("User signed up successfully:", user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing up:", errorCode, errorMessage);
+          setMessage(errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(auth, emailValue, passwordValue)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          navigate("/browse");
+          console.log("User signed in successfully:", user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing in:", errorCode, errorMessage);
+          setMessage(errorMessage);
+        });
+    }
   };
   return (
     <div className="relative h-screen">
