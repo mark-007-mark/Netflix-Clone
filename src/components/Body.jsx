@@ -10,7 +10,7 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+     const unsubscirbe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, displayName, email } = user || {};
         dispatch(
@@ -23,9 +23,11 @@ const Body = () => {
         navigate("/browse");
       } else {
         dispatch(removeUser());
+        navigate('/');
       }
     });
-  });
+    return () => unsubscirbe();
+  }, []);
 
   return (
     <>
