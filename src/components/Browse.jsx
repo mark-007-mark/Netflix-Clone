@@ -1,15 +1,31 @@
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import userstore from "../utils/appStore";
+import { options } from "../utils/constants";
 const Browse = () => {
   const user = useSelector((store) => store.user);
   const displayName = user?.displayName || "User";
 
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  const callAPI = async () => {
+    try {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+        options
+      );
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    callAPI();
+  }, []);
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
