@@ -4,6 +4,8 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
   const user = useSelector((store) => store.user);
@@ -65,6 +67,7 @@ const Browse = () => {
           )}
         </div>
       </div>
+      <MainContainer />
     </>
   );
 };
