@@ -5,9 +5,9 @@ import MovieCard from "./MovieCard";
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store?.movie?.nowPlaying);
   return (
-    <div>
+    <div className="bg-black w-screen">
       <div className="p-4">
-        <h1 className="text-lg md:text-xl  py-2">Now Playing</h1>
+        <h1 className="text-lg md:text-xl text-white py-2">Now Playing</h1>
         <div className="w-screen flex overflow-x-scroll scrollbar-hide">
           <div className="flex gap-4">
             {movies.map((movie) => (
@@ -23,7 +23,7 @@ const SecondaryContainer = () => {
         </div>
       </div>
       <div className="p-4">
-        <h1 className="text-lg md:text-xl  py-2">Trending</h1>
+        <h1 className="text-lg md:text-xl text-white py-2">Trending</h1>
         <div className="w-screen flex overflow-x-scroll scrollbar-hide">
           <div className="flex gap-4">
             {movies.map((movie) => (
@@ -39,7 +39,7 @@ const SecondaryContainer = () => {
         </div>
       </div>
       <div className="p-4">
-        <h1 className="text-lg md:text-xl  py-2">Popular</h1>
+        <h1 className="text-lg md:text-xl text-white py-2">Popular</h1>
         <div className="w-screen flex overflow-x-scroll scrollbar-hide">
           <div className="flex gap-4">
             {movies.map((movie) => (

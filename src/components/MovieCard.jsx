@@ -7,7 +7,7 @@ const MovieCard = ({ title, movies, image }) => {
   return (
     <div className="flex-none">
       <img
-        className="w-36 md:w-48 rounded-lg hover:scale-110 transition-transform duration-300 cursor-pointer"
+        className="w-32 md:w-40 rounded-lg hover:scale-110 transition-transform duration-300 cursor-pointer"
         src={imageBaseUrl}
         alt="Movie Poster"
       />
