@@ -12,7 +12,6 @@ const useNowPlayingMovies = () => {
       );
       const json = await response.json();
       dispatch(setNowPlaying(json.results));
-      console.log(json);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

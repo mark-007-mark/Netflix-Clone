@@ -18,7 +18,6 @@ const Browse = () => {
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
-        console.log("User signed out successfully");
         navigate("/login");
       })
       .catch((error) => {

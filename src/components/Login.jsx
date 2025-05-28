@@ -52,8 +52,6 @@ const Login = () => {
             .catch((error) => {
               console.error("Error updating profile:", error);
             });
-
-          console.log("User signed up successfully:", user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -74,8 +72,6 @@ const Login = () => {
             })
           );
           navigate("/browse");
-
-          console.log("User signed in successfully:", user);
         })
         .catch((error) => {
           const errorCode = error.code;
