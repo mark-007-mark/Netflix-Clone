@@ -1,9 +1,9 @@
-import React from 'react'
-import { IMAGE_BASE_URL } from '../utils/constants';
+import React from "react";
+import { IMAGE_BASE_URL } from "../utils/constants";
 
-const MovieCard = ({title, movies, image}) => {
+const MovieCard = ({ title, movies, image }) => {
   const imageBaseUrl = IMAGE_BASE_URL + image;
-  
+
   return (
     <div className="flex-none">
       <img
@@ -12,7 +12,7 @@ const MovieCard = ({title, movies, image}) => {
         alt="Movie Poster"
       />
     </div>
-  )
-}
+  );
+};
 
-export default MovieCard
+export default MovieCard;
