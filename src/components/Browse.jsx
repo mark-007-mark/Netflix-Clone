@@ -67,6 +67,7 @@ const Browse = () => {
         </div>
       </div>
       <MainContainer />
+      <SecondaryContainer/>
     </>
   );
 };
