@@ -4,51 +4,29 @@ import MovieCard from "./MovieCard";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store?.movie?.nowPlaying);
+  const popularmovies = useSelector((store) => store?.movie?.popularMovies);
+
   return (
     <div className="bg-black w-screen">
       <div className="p-4">
         <h1 className="text-lg md:text-xl text-white py-2">Now Playing</h1>
         <div className="w-screen flex overflow-x-scroll scrollbar-hide">
           <div className="flex gap-4">
-            {movies.map((movie) => (
-              <div className="flex-shrink-0 w-36 md:w-48">
-                <MovieCard
-                  key={movie.id}
-                  movies={movies}
-                  image={movie.poster_path}
-                />
+            {movies?.map((movie) => (
+              <div key={movie.id} className="flex-shrink-0 w-36 md:w-48">
+                <MovieCard key={movie.id} image={movie.poster_path} />
               </div>
             ))}
           </div>
         </div>
       </div>
       <div className="p-4">
-        <h1 className="text-lg md:text-xl text-white py-2">Trending</h1>
+        <h1 className="text-lg md:text-xl text-white py-2">Popular Movies</h1>
         <div className="w-screen flex overflow-x-scroll scrollbar-hide">
           <div className="flex gap-4">
-            {movies.map((movie) => (
-              <div className="flex-shrink-0 w-36 md:w-48">
-                <MovieCard
-                  key={movie.id}
-                  movies={movies}
-                  image={movie.poster_path}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="p-4">
-        <h1 className="text-lg md:text-xl text-white py-2">Popular</h1>
-        <div className="w-screen flex overflow-x-scroll scrollbar-hide">
-          <div className="flex gap-4">
-            {movies.map((movie) => (
-              <div className="flex-shrink-0 w-36 md:w-48">
-                <MovieCard
-                  key={movie.id}
-                  movies={movies}
-                  image={movie.poster_path}
-                />
+            {popularmovies?.map((movie) => (
+              <div key={movie.id} className="flex-shrink-0 w-36 md:w-48">
+                <MovieCard key={movie.id} image={movie.poster_path} />
               </div>
             ))}
           </div>

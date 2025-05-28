@@ -1,7 +1,7 @@
 import React from "react";
 import { IMAGE_BASE_URL } from "../utils/constants";
 
-const MovieCard = ({ title, movies, image }) => {
+const MovieCard = ({ image }) => {
   const imageBaseUrl = IMAGE_BASE_URL + image;
 
   return (

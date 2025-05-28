@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import usePopularMovies from "../hooks/usePopularMovies";
 
 const Browse = () => {
   const user = useSelector((store) => store.user);
@@ -14,7 +15,7 @@ const Browse = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   useNowPlayingMovies();
-
+  usePopularMovies();
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
@@ -67,7 +68,7 @@ const Browse = () => {
         </div>
       </div>
       <MainContainer />
-      <SecondaryContainer/>
+      <SecondaryContainer />
     </>
   );
 };
