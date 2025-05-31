@@ -8,9 +8,12 @@ import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import { toggleGptSearch } from "../utils/gptSlice";
+import GptSearch from "./GptSearch";
+import { NETFLIX_LOGO } from "../utils/constants";
 
 const Browse = () => {
   const dispatch = useDispatch();
+  const buttonClicked = useSelector((store) => store.gpt.showgptSearch);
   const user = useSelector((store) => store.user);
   const displayName = user?.displayName || "User";
   const navigate = useNavigate();
@@ -32,18 +35,14 @@ const Browse = () => {
   return (
     <>
       <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-20 flex justify-between">
-        <img
-          className="w-44"
-          src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-          alt="Netflix Logo"
-        />
+        <img className="w-44" src={NETFLIX_LOGO} alt="Netflix Logo" />
 
         <div className="relative flex items-center gap-4">
           <button
             onClick={handlegptSearch}
             className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 font-medium text-sm"
           >
-            Search
+            {buttonClicked ? "Home" : "Search"}
           </button>
 
           <div
@@ -80,8 +79,15 @@ const Browse = () => {
           </div>
         </div>
       </div>
-      <MainContainer />
-      <SecondaryContainer />
+      {buttonClicked ? (
+        <GptSearch />
+      ) : (
+        <>
+          {" "}
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </>
   );
 };
