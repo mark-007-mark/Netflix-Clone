@@ -5,15 +5,15 @@ import { NETFLIX_BACKGROUND } from "../utils/constants";
 
 const GptSearch = () => {
   return (
-    <div className="relative h-screen">
+    <div className="relative min-h-screen">
       <div className="absolute top-0 left-0 -z-10 w-screen h-screen">
-        <img 
+        <img
           className="h-screen object-cover w-screen"
-          src={NETFLIX_BACKGROUND} 
-          alt="Netflix Logo" 
+          src={NETFLIX_BACKGROUND}
+          alt="Netflix Logo"
         />
       </div>
-      <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-full">
+      <div className="pt-[10%]">
         <GptSearchBar />
         <GptMovieSuggestions />
       </div>
